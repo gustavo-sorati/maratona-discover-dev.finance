@@ -176,7 +176,7 @@ const App = {
         })
 
         DOM.updateBalance();
-        Storage.set(Transactions.all);
+        Storage.set(Transaction.all);
     },
     reload(){
         DOM.clearTransaction();
