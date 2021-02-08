@@ -3,7 +3,7 @@
 </div>
 
 <header align="center">
-    <a href="http://github.com/gustavo-sorati">
+    <a align="center" href="http://github.com/gustavo-sorati">
         <img align="center" src="https://img.shields.io/badge/Author-Gustavo%20Sorati-blue?style=for-the-badge" alt="Author: Gustavo Sorati">
     </a>
 </header>
