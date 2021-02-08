@@ -14,7 +14,19 @@ body {
     --green: #49AA26;
     --light-green: #3dd705;
     --red: #e92929;
+
+    transition: 0.5s all ease;
 }
+
+html.night {
+    --dark-blue: pink;
+    --green: blue;
+    --light-green: lightblue;
+    --red: #e92929;
+}
+
+/* THEME CONTROL */
+
 
 /* CSS Trick para manter elemento invisivel sem afetar leitores de tela */
 .sr-only {
@@ -34,6 +46,7 @@ body {
     width: min(90vw, 800px);
     margin: 0 auto;
 }
+/* ----------------------------------------- */
 
 /* TITLES */
 h2 {
@@ -43,6 +56,7 @@ h2 {
 
     font-weight: 400;
 }
+/* ----------------------------------------- */
 
 /* LINKS AND BUTTONS */
 a {
@@ -92,9 +106,7 @@ button:hover {
 .button.cancel:hover {
     opacity: 1;
 }
-
-
-
+/* ----------------------------------------- */
 
 /* HEADER */
 header {
@@ -108,8 +120,52 @@ header #logo {
     font-weight: 100;
 }
 
-/* BALANCE */
+.header__content {
+    position: relative;
+}
 
+.__control-theme {
+    position: absolute;
+    top: 32px;
+    right: 26.7%;
+}
+
+.__control-theme__widget {
+    width: 45px;
+    height: 23px;
+    background-color:#777;
+    border-radius: 50px;  
+
+    display: flex;
+    align-items: center;
+
+    padding: 3px;
+    position: relative;
+    transition: 0.5s all ease;
+}
+
+.__control-theme__widget.night {
+    background-color: #c5c5c5;
+}
+
+.__control-theme__circle {
+    width: 18px;
+    height: 18px;
+    background-color: #c5c5c5;
+    border-radius: 50%;
+    cursor: pointer;
+
+    transition: 0.5s all ease;
+}
+
+.__control-theme__circle.night {
+    background-color: #777;
+    transform: translateX(21px);
+}
+/* ----------------------------------------- */
+
+
+/* BALANCE */
 .balance {
     margin-top: -8rem;
 }
@@ -148,6 +204,7 @@ header #logo {
     background-color: var(--green);
     color: #fff;
 }
+/* ----------------------------------------- */
 
 /* TRANSACTIONS */
 #transactions {
@@ -205,6 +262,7 @@ table td {
 .data-table__price-expense {
     color: #e92929;
 }
+/* ----------------------------------------- */
 
 /* FOOTER */
 footer {
@@ -281,6 +339,9 @@ footer {
 .input-group.actions button {
     width: 48%;
 }
+
+
+
 
 
 /* RESPONSIVE */
