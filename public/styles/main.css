@@ -5,11 +5,15 @@
 }
 
 body {
-    background: #f0f2f5;
+    background: var(--background);
     font-family: 'Poppins', sans-serif;
+
+    transition: .5s all ease;
 }
 
 :root {
+    --background: #f0f2f5;
+    --is-day: #04879c;
     --dark-blue:#363f5f;
     --green: #49AA26;
     --light-green: #3dd705;
@@ -18,11 +22,9 @@ body {
     transition: 0.5s all ease;
 }
 
-html.night {
-    --dark-blue: pink;
-    --green: blue;
-    --light-green: lightblue;
-    --red: #e92929;
+html.night-mode {
+    --background: #26282b;
+    --is-day: #353941;
 }
 
 /* THEME CONTROL */
@@ -110,57 +112,63 @@ button:hover {
 
 /* HEADER */
 header {
-    background-color: #2d4a22;
+    background-color: var(--is-day);
     padding: 2rem 0 10rem;
     text-align: center;
+}
+
+.night-mode header {
+    background-color: var(--is-day);
 }
 
 header #logo {
     color: #fff;
     font-weight: 100;
+    display: inline-block;
 }
 
 .header__content {
     position: relative;
 }
 
-.__control-theme {
+.control-theme {
     position: absolute;
-    top: 32px;
-    right: 26.7%;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: inline-block;
 }
 
-.__control-theme__widget {
-    width: 45px;
+.theme-switch-label {
+    width: 42px;
     height: 23px;
-    background-color:#777;
+    background-color:#fff;
     border-radius: 50px;  
 
     display: flex;
     align-items: center;
-
     padding: 3px;
-    position: relative;
+    
+    cursor: pointer;    
     transition: 0.5s all ease;
 }
 
-.__control-theme__widget.night {
-    background-color: #c5c5c5;
+.night-mode  .theme-switch-label {
+    background-color: #777;
 }
 
-.__control-theme__circle {
+.theme-switch-circle {
     width: 18px;
     height: 18px;
-    background-color: #c5c5c5;
+    background-color: #333;
     border-radius: 50%;
-    cursor: pointer;
 
     transition: 0.5s all ease;
 }
 
-.__control-theme__circle.night {
-    background-color: #777;
-    transform: translateX(21px);
+.night-mode .theme-switch-circle{
+    background-color: #fff;
+    transform: translateX(17px);
 }
 /* ----------------------------------------- */
 
@@ -297,7 +305,7 @@ footer {
 
 .modal {
     position: relative;
-    background-color: #f0f2f5;
+    background-color:var(--background);
     max-width: 500px;
     width: 90%;
     height: 340px;
