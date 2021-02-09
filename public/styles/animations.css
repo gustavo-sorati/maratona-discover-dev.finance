@@ -1,0 +1,10 @@
+.animate path {
+	animation: svg-animate 4s forwards normal;
+}
+
+@keyframes svg-animate {
+	from {}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
