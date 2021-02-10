@@ -23,10 +23,11 @@
 
 # :rocket: Futuras Features
 
-<section>
-    <input type="checkbox" disabled>Modo Noturno
+<div>
+    <ul>
+        <li><s>Modo Notsrno</s></li>
     <br/>
-    <input type="checkbox" disabled>Animação de entrada
+        <li><s>Animação de entrada</s></li>
     <br/>
     <input type="checkbox" disabled>Instrução de uso
     <br/>
