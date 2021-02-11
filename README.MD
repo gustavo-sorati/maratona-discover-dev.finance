@@ -29,6 +29,8 @@
     <br/>
         <li><s>Animação de entrada</s></li>
     <br/>
+        <li><s>Edição de itens</s></li>
+    <br/>
     <input type="checkbox" disabled>Instrução de uso
     <br/>
     <input type="checkbox" disabled>Tratamento de erros(agradável)

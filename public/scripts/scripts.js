@@ -1,9 +1,3 @@
-const Modal = {
-  toggleModal() {
-    document.querySelector('.modal-overlay').classList.toggle('active');
-  },
-};
-
 const Storage = {
   get() {
     return JSON.parse(localStorage.getItem('dev.finance:transactions')) || [];
@@ -19,9 +13,17 @@ const Storage = {
 const Transaction = {
   all: Storage.get(),
   add(transaction) {
-    Transaction.all.push(transaction);
+    if(transaction.edit === "true"){
+      Transaction.all[transaction.transactionEditNumber] = transaction;
+    } else {
+      Transaction.all.push(transaction);
+    }
 
     App.reload();
+  },
+  edit(index) {
+    Modal.setValues(Transaction.all[index], index);
+    Modal.open();
   },
   remove(index) {
     Transaction.all.splice(index, 1);
@@ -58,6 +60,24 @@ const Transaction = {
   },
 };
 
+const Modal = {
+  modalOverlay: document.querySelector('.modal-overlay'),
+  open() {
+    Modal.modalOverlay.classList.add('active');
+  },
+  close() {
+    Modal.modalOverlay.classList.remove('active');
+    Form.clearFields();
+  },
+  setValues(transaction, index) {
+    document.querySelector('.modal-overlay #description').value = transaction.description;
+    document.querySelector('.modal-overlay #amount').value = Utils.formatAmountToModal(transaction.amount);
+    document.querySelector('.modal-overlay #date').value = Utils.formatDateToModal(transaction.date);
+    document.querySelector('.modal-overlay #edit').value = "true";
+    document.querySelector('.modal-overlay #edit').dataset.index = index;
+  },
+};
+
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
 
@@ -80,7 +100,10 @@ const DOM = {
             <td class="data-table__description">${transaction.description}</td>
             <td class="data-table__price-${CSSclass}">${amount}</td>
             <td class="data-table__date">${transaction.date}</td>
-            <td><img onClick="Transaction.remove(${index})" src="public/assets/minus.svg" alt="Remover transação"></td>
+            <td>
+              <img class="data-table-edit" onClick="Transaction.edit(${index})" src="public/assets/edit.svg" alt="Editar transação">
+              <img onClick="Transaction.remove(${index})" src="public/assets/minus.svg" alt="Remover transação">
+            </td>
         `;
     return html;
   },
@@ -100,7 +123,12 @@ const DOM = {
 const Utils = {
   formatAmout(value) {
     value = Number(value) * 100;
-    return value;
+    return Math.round(value);
+  },
+  formatAmountToModal(value){
+    value = value / 100 
+
+    return value.toFixed(2)
   },
   formatCurrency(value) {
     const signal = +value < 0 ? '-' : '';
@@ -122,32 +150,40 @@ const Utils = {
 
     return `${splitedDate[2]}/${splitedDate[1]}/${splitedDate[0]}`;
   },
+  formatDateToModal(date) {
+    const splitedDate = date.split('/');
+
+    return `${splitedDate[2]}-${splitedDate[1]}-${splitedDate[0]}`;
+  }
 };
 
 const Form = {
   description: document.querySelector('input#description'),
   amount: document.querySelector('input#amount'),
   date: document.querySelector('input#date'),
+  edit: document.querySelector('input#edit'),
 
-  getValues() {
+  getValues() {    
     return {
       description: Form.description.value,
       amount: Form.amount.value,
       date: Form.date.value,
+      edit: Form.edit.value,
+      transactionEditNumber: Form.edit.dataset.index
     };
   },
   formatValues() {
-    let { description, amount, date } = Form.getValues();
+    let { description, amount, date, edit, transactionEditNumber } = Form.getValues();
 
     amount = Utils.formatAmout(amount);
 
     date = Utils.formatDate(date);
 
-    return { description, amount, date };
+    return { description, amount, date, edit, transactionEditNumber };
   },
   validateFields() {
     let { description, amount, date } = Form.getValues();
-
+    
     if (
       description.trim() === '' ||
       amount.trim() === '' ||
@@ -160,6 +196,9 @@ const Form = {
     Form.description.value = '';
     Form.amount.value = '';
     Form.date.value = '';
+    Form.edit.dataset.index = '';
+    Form.edit.value = 'false';
+    
   },
   submit(event) {
     event.preventDefault();
@@ -167,11 +206,10 @@ const Form = {
     try {
       Form.validateFields();
       const transaction = Form.formatValues();
-
       Transaction.add(transaction);
       Form.clearFields();
 
-      Modal.toggleModal();
+      Modal.close();
     } catch (err) {
       alert(err.message);
     }
