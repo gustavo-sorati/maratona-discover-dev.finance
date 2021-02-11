@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,800;1,100;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="/public/styles/main.css">
     <link rel="stylesheet" href="/public/styles/animations.css">
 
@@ -65,7 +68,7 @@
             <section id="transactions">
                 <h2 class="sr-only">Transações</h2>
 
-                <a href="#" class="button new" onClick="Modal.toggleModal()">+ Nova transação</a>
+                <a href="#" class="button new" onClick="Modal.open()">+ Nova transação</a>
                 <table id="data-table">
                     <thead>
                         <tr>
@@ -81,6 +84,10 @@
                 </table>
             </section>
         </main>
+
+        <canvas class="chart">
+
+        </canvas>
 
         <div class="modal-overlay">
             <div class="modal">
@@ -105,8 +112,10 @@
                                 <input type="date" step="0.01" name="date" id="date" />
                             </div>
 
+                            <input class="sr-only" type="text" name="edit" id="edit" data-index />
+
                             <div class="input-group actions">
-                                <a href="#" class="button cancel" onClick="Modal.toggleModal()">Cancelar</a>
+                                <a href="#" class="button cancel" onClick="Modal.close()">Cancelar</a>
                                 <button>Salvar</button>
                             </div>
                         </form>
@@ -124,6 +133,46 @@
 
     </div>
 
+    <!-- <script>
+        let ctx = document.getElementsByClassName('chart');
+
+        let chartGraph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'te', 'x'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3, 8, 15],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script> -->
     <script src="public/scripts/scripts.js"></script>
     <script src="public/scripts/theme.js"></script>
     <script src="public/scripts/animation.js"></script>

@@ -270,6 +270,14 @@ table td {
 .data-table__price-expense {
     color: #e92929;
 }
+
+.data-table-edit {
+    width: 28px;
+    height: 28px;
+    opacity: .7;
+    margin-right: 10px;
+    cursor: pointer;
+}
 /* ----------------------------------------- */
 
 /* FOOTER */
