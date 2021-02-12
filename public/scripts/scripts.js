@@ -10,10 +10,19 @@ const Storage = {
   },
 };
 
+const AudioFile = {
+  audio: new Audio('public/assets/cash-register.mp3'),
+
+  play() {
+    AudioFile.audio.play();
+  },
+};
+
 const Transaction = {
   all: Storage.get(),
   add(transaction) {
-    if(transaction.edit === "true"){
+    AudioFile.play();
+    if (transaction.edit === 'true') {
       Transaction.all[transaction.transactionEditNumber] = transaction;
     } else {
       Transaction.all.push(transaction);
@@ -70,10 +79,15 @@ const Modal = {
     Form.clearFields();
   },
   setValues(transaction, index) {
-    document.querySelector('.modal-overlay #description').value = transaction.description;
-    document.querySelector('.modal-overlay #amount').value = Utils.formatAmountToModal(transaction.amount);
-    document.querySelector('.modal-overlay #date').value = Utils.formatDateToModal(transaction.date);
-    document.querySelector('.modal-overlay #edit').value = "true";
+    document.querySelector('.modal-overlay #description').value =
+      transaction.description;
+    document.querySelector(
+      '.modal-overlay #amount',
+    ).value = Utils.formatAmountToModal(transaction.amount);
+    document.querySelector(
+      '.modal-overlay #date',
+    ).value = Utils.formatDateToModal(transaction.date);
+    document.querySelector('.modal-overlay #edit').value = 'true';
     document.querySelector('.modal-overlay #edit').dataset.index = index;
   },
 };
@@ -125,10 +139,10 @@ const Utils = {
     value = Number(value) * 100;
     return Math.round(value);
   },
-  formatAmountToModal(value){
-    value = value / 100 
+  formatAmountToModal(value) {
+    value = value / 100;
 
-    return value.toFixed(2)
+    return value.toFixed(2);
   },
   formatCurrency(value) {
     const signal = +value < 0 ? '-' : '';
@@ -154,7 +168,7 @@ const Utils = {
     const splitedDate = date.split('/');
 
     return `${splitedDate[2]}-${splitedDate[1]}-${splitedDate[0]}`;
-  }
+  },
 };
 
 const Form = {
@@ -163,17 +177,23 @@ const Form = {
   date: document.querySelector('input#date'),
   edit: document.querySelector('input#edit'),
 
-  getValues() {    
+  getValues() {
     return {
       description: Form.description.value,
       amount: Form.amount.value,
       date: Form.date.value,
       edit: Form.edit.value,
-      transactionEditNumber: Form.edit.dataset.index
+      transactionEditNumber: Form.edit.dataset.index,
     };
   },
   formatValues() {
-    let { description, amount, date, edit, transactionEditNumber } = Form.getValues();
+    let {
+      description,
+      amount,
+      date,
+      edit,
+      transactionEditNumber,
+    } = Form.getValues();
 
     amount = Utils.formatAmout(amount);
 
@@ -183,7 +203,7 @@ const Form = {
   },
   validateFields() {
     let { description, amount, date } = Form.getValues();
-    
+
     if (
       description.trim() === '' ||
       amount.trim() === '' ||
@@ -198,7 +218,6 @@ const Form = {
     Form.date.value = '';
     Form.edit.dataset.index = '';
     Form.edit.value = 'false';
-    
   },
   submit(event) {
     event.preventDefault();

@@ -13,7 +13,7 @@ body {
 
 :root {
     --background: #f0f2f5;
-    --is-day: #04879c;
+    --is-day: linear-gradient(180deg, #5B21B6, #4C1D95 60%);
     --dark-blue:#363f5f;
     --green: #49AA26;
     --light-green: #3dd705;
@@ -24,7 +24,7 @@ body {
 
 html.night-mode {
     --background: #26282b;
-    --is-day: #353941;
+    /* --is-day: #353941; */
 }
 
 /* THEME CONTROL */
@@ -112,7 +112,7 @@ button:hover {
 
 /* HEADER */
 header {
-    background-color: var(--is-day);
+    background: var(--is-day);
     padding: 2rem 0 10rem;
     text-align: center;
 }
